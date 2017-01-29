@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Enemy_Top
   - Block_Bottom
+  - HitByPlayer
+  - HitPlayer
   layers:
   - Default
   - TransparentFX

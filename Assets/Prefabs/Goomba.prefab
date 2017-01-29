@@ -19,11 +19,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4804940937679412}
-  - component: {fileID: 68009324794913156}
   - component: {fileID: 61394365778161896}
   m_Layer: 11
-  m_Name: Collider
-  m_TagString: Untagged
+  m_Name: HitPlayer_Collider
+  m_TagString: HitPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72,8 +71,8 @@ GameObject:
   - component: {fileID: 4303264830716360}
   - component: {fileID: 61187568822177546}
   m_Layer: 11
-  m_Name: Top Collider
-  m_TagString: Enemy_Top
+  m_Name: HitByPlayer_Collider
+  m_TagString: HitByPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -110,7 +109,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1673991050204282}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 16, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -166,7 +165,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0.25}
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 0.5}
+  m_Size: {x: 0.5, y: 0.5}
 --- !u!61 &61394365778161896
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -181,28 +180,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: -0.25}
   serializedVersion: 2
   m_Size: {x: 1, y: 0.5}
---- !u!68 &68009324794913156
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1366213944217684}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  m_Points:
-  - {x: -0.5, y: 0.5}
-  - {x: -0.4, y: 0.5}
-  - {x: -0.4, y: 0.4}
-  - {x: 0.4, y: 0.4}
-  - {x: 0.4, y: 0.5}
-  - {x: 0.5, y: 0.5}
-  - {x: 0.5, y: -0.5}
-  - {x: -0.5, y: -0.5}
-  - {x: -0.5, y: 0.5}
 --- !u!95 &95455586702751370
 Animator:
   serializedVersion: 3
@@ -262,7 +239,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300090, guid: 720d509a10398e041841f11e4847203b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

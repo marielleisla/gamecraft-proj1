@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class Goomba : Enemy {
 
+    float walkingSpeed = 5;
     Vector3 currentSpeed;
 
     public override void Start() {
         base.Start();
         currentSpeed = new Vector3(walkingSpeed, 0);
         rb.velocity = currentSpeed;
-        scoreValue = 100;
     }
 
 	// Update is called once per frame
@@ -38,19 +38,28 @@ public class Goomba : Enemy {
         }
     }
 
+    /* When a Goomba is hit by the player, it dies: entering the 
+     * dead (squashed) animation state, settings its velocity to 0 
+     * and becoming kinematic, and destroying its colliders. */
     public override void HitByPlayer(PlayerController player)
     {
-        anim.SetBool("Hit", true);
-        rb.velocity = Vector3.zero;
-        dead = true;
-        foreach (Collider2D collider in myColliders) {
-            Destroy(collider);
-        }
+        /*
+         * 
+         * YOUR CODE HERE
+         * 
+         */ 
         rb.isKinematic = true;
     }
 
+    /* When a Goomba hits the player, the player shrinks. See
+     PlayerController.Shrink(). */
     public override void HitPlayer(PlayerController player)
     {
-        player.Shrink();
+        /*
+         * 
+         * YOUR CODE HERE
+         * 
+         */
     }
+
 }

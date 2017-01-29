@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
 
@@ -20,7 +21,6 @@ public class PlayerController : MonoBehaviour {
     GameObject duckingMario;
     GameObject littleMario;
     GameObject superMario;
-    UI ui;
     bool super;
     bool little;
 
@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour {
         rb.freezeRotation = true;
         anim = this.gameObject.GetComponent<Animator>();
         myState = new Grounded(this);
-        ui = GameObject.Find("UI_Canvas").GetComponent<UI>();
         if (gameObject.name == "Super Mario")
         {
             super = true;
@@ -118,25 +117,31 @@ public class PlayerController : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
+
+    /* If littleMario turn into superMario.
+     * If superMario, add a life. In the real game,
+     * when Mario is Super, all mushrooms turn into
+     * fire flowers, which give him the power to shoot
+     * fireballs. But we haven't implemented this. */
     public void Grow() {
-        //If littleMario turn into superMario.
-        //If superMario turn into fireMario.
         if (little) {
             superMario.SetActive(true);
             superMario.transform.position = new Vector3(this.transform.position.x, superMario.transform.position.y);
             littleMario.SetActive(false);
+        } else {
+            /* Do nothing for now. We will add this functionality in
+             * Project 1-3. */ 
         }
     }
 
+    /* If littleMario, then take a life. If superMario,
+     * turn into littleMario. */
     public void Shrink() {
-        //If littleMario then gameOver.
-        //If superMario turn into littleMario.
-        //If fireMario turn into superMario.
         if (little)
         {
-            Debug.Log("Game Over!");
-            //Add other stuff here but for now, just
-            ui.TakeLife();
+            /* This will interact with the UI system in Project 1-3,
+             * but for now we'll just reload the scene. */
+            SceneManager.LoadScene("Main Scene");
         }
         else if (super) {
             littleMario.SetActive(true);
@@ -145,27 +150,28 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    /* Anything that can collide with Mario and effect him is 
+     * detected in this function. It checks the layer, gets the 
+     * script that contains all object functions, and then
+     * calls the needed function from the attached script.
+     * For enemies it will be either HitByPlayer or HitPlayer 
+     * depending on the *collider tag*, and for items it will be the
+     * PickUpItem function. */
     public void OnCollisionEnter2D(Collision2D coll) {
+        //A layer is stored as an int. This function gets the 
+        //layer name so that we can check it against strings.
         switch (LayerMask.LayerToName(coll.gameObject.layer))
         {
             case "Item":
                 Item item = coll.collider.GetComponent<Item>();
                 item.PickUpItem(this);
-                ui.UpdateScore(item.GetScore());
                 break;
             case "Enemy":
-                //On top collider: kill enemy
-                //Anywhere else: Mario takes damage
-                Enemy enemy = coll.transform.parent.GetComponentInChildren<Enemy>();
-                if (coll.collider.tag == "Enemy_Top")
-                {
-                    enemy.HitByPlayer(this);
-                    ui.UpdateScore(enemy.GetScore());
-                }
-                else
-                {
-                    enemy.HitPlayer(this);
-                }
+                /*
+                 * 
+                 * YOUR CODE HERE
+                 * 
+                 */
                 break;
         }
     }
@@ -216,13 +222,6 @@ public class PlayerController : MonoBehaviour {
             {
                 rb.AddForce(new Vector3(groundAcceleration * moveX, 0));
             }
-            /*if (Mathf.Abs(rb.velocity.x) <= 3)
-            {
-                Debug.Log("falling slowly");
-                rb.velocity = Vector3.zero;
-            }*/
-            //Check if falling. Pause animation at current frame
-            //and add the extra gravity.
             if (rb.velocity.y < -2)
             {
                 controller.stateEnded = true;
@@ -231,7 +230,8 @@ public class PlayerController : MonoBehaviour {
 
         public void Exit()
         {
-            /*Determine the animation state. */
+            /*Determine the animation state. If jumping, add the
+             preliminary jump force. */
             if (Input.GetButton("Jump"))
             {
                 rb.AddForce(new Vector3(0, moveJump * jumpForce));
@@ -247,7 +247,6 @@ public class PlayerController : MonoBehaviour {
 
         public PlayerState HandleInput()
         {
-            //controller.anim.SetBool("Grounded", false);
             if (Input.GetButton("Jump") || controller.stateEnded)
             {
                 return new InAir(controller);
@@ -280,6 +279,9 @@ public class PlayerController : MonoBehaviour {
             this.moveJump = controller.moveJump;
             this.airHorizAcceleration = 5;
             this.airJumpAcceleration = 18;
+            /* Set jumpingTime to 0 if the player
+             * is falling. This way they can't add
+             * any extra force. */
             if (Input.GetButton("Jump"))
             {
               jumpingTime = 1;
@@ -294,9 +296,6 @@ public class PlayerController : MonoBehaviour {
         {
             moveJump = Input.GetAxis("Jump");
             moveX = Input.GetAxis("Horizontal");
-            //This only adds force based on the value of
-            //moveJump - which should be zero if its not
-            //pressed.
         }
 
         public void Update()

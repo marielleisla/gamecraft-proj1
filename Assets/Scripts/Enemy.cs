@@ -6,11 +6,10 @@ public abstract class Enemy : MonoBehaviour {
 
     protected Rigidbody2D rb;
     protected Animator anim;
+    /* An enemy may have multiple colliders. */
     protected Collider2D[] myColliders;
-    protected float walkingSpeed = 5;
     protected float timeToDeath = 0.5f;
     protected bool dead = false;
-    protected int scoreValue;
 
     // Use this for initialization
     public virtual void Start () {
@@ -20,15 +19,13 @@ public abstract class Enemy : MonoBehaviour {
         myColliders = GetComponentsInChildren<Collider2D>();
     }
 
-    public virtual void FixedUpdate () {
-		
-	}
+    public abstract void FixedUpdate();
 
-    public int GetScore()
-    {
-        return scoreValue;
-    }
-
+    /* Called BY the Player Controller (passing itself in) when 
+     * the Player collides with an Enemy's HitByPlayer collider. */
     public abstract void HitByPlayer(PlayerController player);
+
+    /* Called BY the Player Controller (passing itself in) when the 
+     * Player collides with an Enemy's HitPlayer collider. */
     public abstract void HitPlayer(PlayerController player);
 }

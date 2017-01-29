@@ -8,17 +8,25 @@ public class MagicMushroom : Item {
     Vector3 activatedPosition;
     Vector3 currentSpeed = new Vector3(5, 0);
     float timeToHide = 0.2f;
+    /*Magic Mushroom needs to activate first by rising up.
+     * Not all items need to have an activation. */
+    bool activated;
 
     public override void Start()
     {
         base.Start();
+        /* When Mario hits a block he will also run into the
+         * trigger zone of Magic Mushroom's collider. */
+        myCollider.isTrigger = true;
+        /* When unactivated, the Magic Mushroom will not be 
+         * effected by gravity. */
+        rb.isKinematic = true;
         activatedPosition = transform.position;
         activatedPosition.y = activatedPosition.y + 1;
     }
 
-    public override void ItemBehavior()
+    public override void FixedUpdate()
     {
-        //Use coroutine for rising up;
         if (activated)
         {
             if (rb.velocity.magnitude <= 0.1f)
@@ -33,6 +41,9 @@ public class MagicMushroom : Item {
         }
     }
 
+    /* This coroutine will run every physics step until the 'yield'
+     * statement. For more information on Coroutines, check the Unity
+     * manual. */
     IEnumerator Activate()
     {
         while (transform.position.y < (activatedPosition.y - 0.01f))
@@ -48,6 +59,8 @@ public class MagicMushroom : Item {
         yield break;
     }
 
+    /* This coroutine briefly hides the sprite so that it isn't visible
+     * when Mario hits and moves the block. */
     IEnumerator ShowAndHide()
     {
         mySprite.enabled = false;
@@ -62,6 +75,7 @@ public class MagicMushroom : Item {
         Destroy(gameObject);
     }
 
+    /* When the player enters the trigger collider, begin activation. */
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player")

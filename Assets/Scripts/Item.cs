@@ -7,34 +7,22 @@ public abstract class Item : MonoBehaviour{
     protected Rigidbody2D rb;
     protected Collider2D myCollider;
     protected SpriteRenderer mySprite;
-    protected int scoreValue = 0;
-
-    public bool activated = false;
-
-    /* Use for item movement, sounds, etc. */
-    public abstract void ItemBehavior();
-
-    /* Called when item is picked up. */
-    public abstract void PickUpItem(PlayerController player);
-
+    
     public virtual void Start() {
         rb = GetComponent<Rigidbody2D>();
-        rb.isKinematic = true;
         rb.freezeRotation = true;
-        myCollider = this.GetComponent<Collider2D>();
-        myCollider.isTrigger = true;
+        myCollider = GetComponent<Collider2D>();
         mySprite = transform.parent.GetComponentInChildren<SpriteRenderer>();
+        /*This code ignores collisions between enemies and items, 
+         * so that enemies can't pick up or run into items. */
         int itemLayer = LayerMask.NameToLayer("Item");
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         Physics2D.IgnoreLayerCollision(itemLayer, enemyLayer, true);
     }
 
-    public virtual void FixedUpdate() {
-        ItemBehavior();
-    }
+    /* Use for item movement, sounds, etc. */
+    public abstract void FixedUpdate();
 
-    public int GetScore()
-    {
-        return scoreValue;
-    }
+    /* Called when item is picked up. */
+    public abstract void PickUpItem(PlayerController player);
 }
