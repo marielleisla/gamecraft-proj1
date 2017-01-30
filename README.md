@@ -33,6 +33,8 @@ The Magic Mushrooms have a parent GameObject, a Rigidbody2D, its Collider, and i
 
 **Note**: We’ve made some changes to Mario’s state system. The “Jumping” state has now become the “InAir” state. The preliminary jumpForce is added in Grounded.Exit() now. Feel free to add your own physics numbers or change it however you like. 
 
+**Also Note**: When editing animations, its best to select the GameObject you want to edit -> Animation tab -> select Animation clip through dropdown menu, rather than double-clicking the Animation clip in the Assets folder. 
+
 ### Unity Editor (Artists and/or Programmers):
 1. On the NES - Super Mario Bros. - Enemies.png sprite sheet: Edit the “Sprite Mode” options, and slice it to get the Goomba sprites. There should be 16 pixels per unit.
 2. Add animation to Goombas using the sprite sheet you sliced in the previous step.  

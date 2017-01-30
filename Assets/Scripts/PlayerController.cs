@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour {
     void Duck()
     {
         duckingMario.SetActive(true);
-        duckingMario.transform.position = new Vector3(rb.position.x, duckingMario.transform.position.y);
+        duckingMario.transform.position = new Vector3(transform.position.x, duckingMario.transform.position.y);
         rb.velocity = Vector3.zero;
         if (!facingRight)
         {
@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour {
         {
             moveX = Input.GetAxis("Horizontal");
             moveJump = Input.GetAxis("Jump");
-            if (Input.GetAxis("Vertical") < -0.01f && controller.super)
+            if ((Input.GetButton("Vertical") && Input.GetAxis("Vertical") < -0.01f) && controller.super)
             {
                 controller.Duck();
             }

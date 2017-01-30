@@ -13,7 +13,7 @@ public class DuckingController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyUp(KeyCode.S)) {
+        if (Input.GetButtonUp("Vertical")) {
             superMario.SetActive(true);
             superMario.transform.position = new Vector3(this.transform.position.x, superMario.transform.position.y);
             Vector3 scale = this.gameObject.transform.localScale;
