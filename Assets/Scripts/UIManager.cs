@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-        
+
         LoadingBackground = GameObject.Find("Loading_Background");
         LoadingLives = GameObject.Find("Loading_Lives").GetComponent<Image>();
         LoadingLivesDigit.Add(LoadingLives);
@@ -64,16 +64,6 @@ public class UIManager : MonoBehaviour {
         SetDigits(TimerDigits, playerTime);
         SetDigits(LoadingLivesDigit, playerLives);
         LoadingBackground.SetActive(false);
-    }
-
-    /* Use coroutine for spending time on Loading screen. */
-    IEnumerator ShowLoadingScreen() {
-        LoadingBackground.SetActive(true);
-        yield return new WaitForSeconds(loadTime);
-        LoadingBackground.SetActive(false);
-        SceneManager.LoadScene("Main Scene");
-        StartCoroutine("KeepTime");
-        yield break;
     }
 
     // Update is called once per frame
@@ -112,6 +102,17 @@ public class UIManager : MonoBehaviour {
         SetDigits(TimerDigits, playerTime);
         StopCoroutine("KeepTime");
         StartCoroutine("ShowLoadingScreen");
+    }
+
+    /* Use coroutine for spending time on Loading screen. */
+    IEnumerator ShowLoadingScreen()
+    {
+        LoadingBackground.SetActive(true);
+        yield return new WaitForSeconds(loadTime);
+        LoadingBackground.SetActive(false);
+        SceneManager.LoadScene("Main Scene");
+        StartCoroutine("KeepTime");
+        yield break;
     }
 
     public void UpdateScore(int scoreToAdd) {
