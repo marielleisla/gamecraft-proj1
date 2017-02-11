@@ -39,7 +39,7 @@ Requirements: 100%
 
 #### Art (Optional):
 
-1. Feel free to replace any of the font sprites or any of the buttons. Please make sure your sprites are 8x8 so that they'll easily fit in the UI framework we've created. (Or not, but you'll have to move things around yourself.) Buttons can be any size, but for reference, our button sprites are 55x55.
+1. Feel free to replace any of the font sprites or any of the buttons. Please make sure your sprites are 8x8 so that they'll easily fit in the UI framework we've created. (Or not, but you'll have to move things around yourself.) Buttons can be any size, but for reference, our button sprites are 55x55. Also make sure to put them in the Assets/Resources folder so that they can be accessed at runtime. 
 
 ### Submission:
 
