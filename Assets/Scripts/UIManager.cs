@@ -39,7 +39,6 @@ public class UIManager : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-
         LoadingBackground = GameObject.Find("Loading_Background");
         LoadingLives = GameObject.Find("Loading_Lives").GetComponent<Image>();
         LoadingLivesDigit.Add(LoadingLives);
@@ -65,9 +64,6 @@ public class UIManager : MonoBehaviour {
         SetDigits(LoadingLivesDigit, playerLives);
         LoadingBackground.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update () {}
 
     void SetDigits(List<Image> digits, int result)
     {
@@ -96,12 +92,21 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+    /* Called every time the Main Scene is loaded.
+     * Do not use SceneManager.LoadScene(). */
     public void LoadScene()
     {
         playerTime = 330;
         SetDigits(TimerDigits, playerTime);
         StopCoroutine("KeepTime");
         StartCoroutine("ShowLoadingScreen");
+    }
+
+    /* Would update the player's score. Functionality not 
+     * yet added. */
+    public void UpdateScore(int scoreToAdd) {
+        playerScore += scoreToAdd;
+        SetDigits(ScoreDigits, playerScore);
     }
 
     /* Use coroutine for spending time on Loading screen. */
@@ -113,11 +118,6 @@ public class UIManager : MonoBehaviour {
         SceneManager.LoadScene("Main Scene");
         StartCoroutine("KeepTime");
         yield break;
-    }
-
-    public void UpdateScore(int scoreToAdd) {
-        playerScore += scoreToAdd;
-        SetDigits(ScoreDigits, playerScore);
     }
 
     IEnumerator KeepTime() {
@@ -132,21 +132,33 @@ public class UIManager : MonoBehaviour {
         yield break;
     }
 
+    /* Called each time an enemy takes a life from Mario.
+     * If he still has lives left, it will just reload the 
+     * main scene. If not, it will reload the Menu Scene
+     * and reset the player's lives for another attempt. */
     public void TakeLife() {
         playerLives -= 1;
         SetDigits(LoadingLivesDigit, playerLives);
         if (playerLives == 0)
         {
-            //Do game over scene and back to Menu Scene?
-            SceneManager.LoadScene("Menu Scene");
-            playerLives = 3;
+            /*
+             * 
+             * YOUR CODE HERE
+             * 
+             */ 
         }
         else
         {
-            LoadScene();
+            /*
+             * 
+             * YOUR CODE HERE
+             * 
+             */ 
         }
     }
 
+    /* Would count the coins that the player has picked up.
+     * Functionality not yet added. */
     public void AddCoin() {
         playerCoins += 1;
         SetDigits(CoinsDigits, playerCoins);

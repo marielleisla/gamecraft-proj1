@@ -20,15 +20,18 @@ public class LoadOnClick : MonoBehaviour {
         UI_Canvas = GameObject.Find("UI_Canvas");
         Title_Screen = GameObject.Find("Title Screen");
         DontDestroyOnLoad(UI_Canvas);
-        //UI_Canvas.SetActive(false);
     }
 
+    /* The function called when the '1Player' button is pressed. 
+     It should load the 'Main Scene' and deactivate the 
+     'Title_Screen' GameObject. */
     public void LoadScene()
     {
-        UIManager.uiManager.LoadScene();
-        Title_Screen.SetActive(false);
-        //Wait a few seconds.
-        //SceneManager.LoadScene("Main Scene");
+        /*
+         * 
+         * YOUR CODE HERE
+         * 
+         */ 
     }
 
 }

@@ -135,7 +135,12 @@ public class PlayerController : MonoBehaviour {
         //If fireMario turn into superMario.
         if (little)
         {
-            uiManager.TakeLife();
+            /* What happens when little Mario is hit
+             * by an enemy? Call a function from UIManager. 
+             * 
+             * YOUR CODE HERE.
+             * 
+             */ 
             this.gameObject.SetActive(false);
         }
         else if (super) {
@@ -216,11 +221,6 @@ public class PlayerController : MonoBehaviour {
             {
                 rb.AddForce(new Vector3(groundAcceleration * moveX, 0));
             }
-            /*if (Mathf.Abs(rb.velocity.x) <= 3)
-            {
-                Debug.Log("falling slowly");
-                rb.velocity = Vector3.zero;
-            }*/
             //Check if falling. Pause animation at current frame
             //and add the extra gravity.
             if (rb.velocity.y < -2)
