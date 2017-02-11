@@ -12,6 +12,10 @@ public class LoadOnClick : MonoBehaviour {
     public void Start() {
         Scene currentScene = SceneManager.GetActiveScene();
         string currentSceneName = currentScene.name;
+        /*This code is just used for the editor, so we can 
+         * have both scenes open at once without having 
+         * problems when we press 'Play'. It would be useless
+         * once the game is actually built and running.*/
         if (currentSceneName == "Main Scene")
         {
             SceneManager.LoadScene("Menu Scene");
